@@ -73,7 +73,6 @@ public class DataStream
 
 	public byte[] ToByteArray()
 	{
-		//return mMemStream.GetBuffer();
 		return mMemStream.ToArray();
 	}
 	
@@ -143,17 +142,8 @@ public class DataStream
 		return val;
 	}
 	
-	//public void WriteString8(string value)
-	//{
-	//    WriteInteger(BitConverter.GetBytes((byte)value.Length));
-	//    System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-	//    //System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-	//    mBinWriter.Write(encoding.GetBytes(value));
-	//}
-	
 	public void WriteString8(string value)
 	{
-		// System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
 		System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
 		byte[] bytes = encoding.GetBytes(value);
 		mBinWriter.Write((byte)bytes.Length);
@@ -164,7 +154,6 @@ public class DataStream
 	{
 		int len = ReadByte();
 		byte[] bytes = mBinReader.ReadBytes(len);
-		// System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
 		System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
 		return encoding.GetString(bytes);
 	}
@@ -174,7 +163,6 @@ public class DataStream
 		System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
 		byte[] data = encoding.GetBytes(value);
 		WriteInteger(BitConverter.GetBytes((Int16)data.Length));
-		//System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
 		mBinWriter.Write(data);
 	}
 	
@@ -182,7 +170,6 @@ public class DataStream
 	{
 		ushort len = ReadInt16();
 		byte[] bytes = mBinReader.ReadBytes(len);
-		//  System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
 		System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
 		return encoding.GetString(bytes);
 	}
@@ -196,7 +183,6 @@ public class DataStream
 	
 	private byte[] FlipBytes(byte[] bytes)
 	{
-		//Array.Reverse(bytes); 
 		for (int i = 0, j = bytes.Length - 1; i < j; ++i, --j)
 		{
 			byte temp = bytes[i];
@@ -206,10 +192,6 @@ public class DataStream
 		return bytes;
 	}
 	
-	
-	/// <summary>
-	/// signed型数据读写
-	/// </summary>
 	public void WriteSByte(sbyte value)
 	{
 		mBinWriter.Write(value);
@@ -259,10 +241,6 @@ public class DataStream
 		return val;
 	}
 	
-	
-	/// <summary>
-	/// Unsigned型数据读写
-	/// </summary>
 	public void WriteUByte(byte value)
 	{
 		mBinWriter.Write(value);
